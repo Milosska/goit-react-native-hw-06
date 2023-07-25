@@ -1,16 +1,16 @@
 import "react-native-gesture-handler";
 import { useCallback } from "react";
-import { StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import Main from "./src/components/Main";
+
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import Authorization from "./src/screens/Auth/Authorization/Authorization";
-import Home from "./src/screens/main/Home/Home";
+
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./src/redux/store";
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
-
   // For fonts instalation
   SplashScreen.preventAutoHideAsync();
 
@@ -35,28 +35,10 @@ export default function App() {
   // End of Fonts instalation
 
   return (
-    <NavigationContainer style={styles.container}>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Authorization"
-          component={Authorization}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Main />
+      </PersistGate>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    position: "relative",
-    flex: 1,
-    backgroundColor: "#fff",
-    fontFamily: "Roboto-Regular",
-  },
-});

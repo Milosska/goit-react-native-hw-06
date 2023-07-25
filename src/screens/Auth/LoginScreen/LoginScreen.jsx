@@ -5,8 +5,13 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
+
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../../redux/auth/authOperations";
+
 import { useOrientation } from "../../../hooks/useOrientation";
 import styles from "./LoginScreen.styles";
+
 import { AuthBackground } from "../../../components/AuthBackground/AuthBackground";
 import { Input } from "../../../components/Input/Input";
 import { PasswordInput } from "../../../components/PasswordInput/PasswordInput";
@@ -15,11 +20,11 @@ import { StyledButton } from "../../../components/StyledButton/StyledButton";
 const LoginScreen = ({ navigation }) => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [userData, setUserData] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
   let orientation = useOrientation();
 
   const handleBtnPress = () => {
-    console.log(userData);
-    navigation.navigate("Home");
+    dispatch(userLogin(userData));
   };
 
   return (

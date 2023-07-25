@@ -6,8 +6,14 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
+
+import { useDispatch } from "react-redux";
+import { userRegister } from "../../../redux/auth/authOperations";
+import { uploadPhotoToDB } from "../../../firebase/helpers";
+
 import { useOrientation } from "../../../hooks/useOrientation";
 import styles from "./RegistrationScreen.styles";
+
 import { AuthBackground } from "../../../components/AuthBackground/AuthBackground";
 import { ImagePickerElem } from "../../../components/ImagePicker/ImagePicker";
 import { Input } from "../../../components/Input/Input";
@@ -24,11 +30,12 @@ const initialUserData = {
 const RegistrationScreen = ({ navigation }) => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [userData, setUserData] = useState(initialUserData);
+  const dispatch = useDispatch();
   let orientation = useOrientation();
 
-  const handleBtnPress = () => {
-    console.log(userData);
-    navigation.navigate("Home");
+  const handleBtnPress = async () => {
+    const photoURI = await uploadPhotoToDB(userData.image, "avatars");
+    dispatch(userRegister({ ...userData, image: photoURI }));
   };
 
   return (

@@ -2,11 +2,15 @@ import { Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 
+import { useDispatch } from "react-redux";
+import { userLogout } from "../../redux/auth/authOperations";
+
 export const LogOutIcon = ({ customStyle }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const handleLogOut = () => {
-    navigation.navigate("Authorization");
+    dispatch(userLogout());
   };
 
   return (
