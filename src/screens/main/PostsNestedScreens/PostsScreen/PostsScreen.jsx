@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useOrientation } from "../../../../hooks/useOrientation";
 
 import { Feather } from "@expo/vector-icons";
+import { UserProfileData } from "../../../../components/UserProfileData/UserProfileData";
 import styles from "./PostsScreen.styles";
 
 const PostsScreen = ({ route }) => {
@@ -44,18 +45,7 @@ const PostsScreen = ({ route }) => {
         paddingVertical: orientation === "landscape" ? 10 : 32,
       }}
     >
-      <View
-        style={{
-          ...styles.userData,
-          marginBottom: orientation === "landscape" ? 10 : 32,
-        }}
-      >
-        <View style={styles.imagePlaceholder} />
-        <View>
-          <Text style={styles.username}>User Name</Text>
-          <Text style={styles.email}>email@mail.com</Text>
-        </View>
-      </View>
+      <UserProfileData />
       <FlatList
         data={posts}
         keyExtractor={(_, index) => index}

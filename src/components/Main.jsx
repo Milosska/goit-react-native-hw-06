@@ -6,9 +6,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Authorization from "../screens/Auth/Authorization/Authorization";
 import Home from "../screens/main/Home/Home";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectIsLoggedIn } from "../redux/selectors";
-import { useDispatch } from "react-redux";
 import { userRefresh } from "../redux/auth/authOperations";
 
 const Main = () => {
