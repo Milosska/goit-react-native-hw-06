@@ -1,11 +1,17 @@
 import { View, Text, ImageBackground, ScrollView } from "react-native";
 import { useOrientation } from "../../../hooks/useOrientation";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/selectors";
+
 import { indicateBgImage } from "../../../helpers/indicateBgImage/indicateBgImage";
 import { ImagePickerElem } from "../../../components/ImagePicker/ImagePicker";
 import { LogOutIcon } from "../../../components/LogOutIcon/LogOutIcon";
 import styles from "./ProfileScreen.styles";
 
 const Profile = () => {
+  const { displayName } = useSelector(selectUser);
+
   const bgImage = indicateBgImage();
   let orientation = useOrientation();
 
@@ -34,7 +40,7 @@ const Profile = () => {
           >
             <ImagePickerElem />
             <LogOutIcon customStyle={styles.logOut} />
-            <Text style={styles.pageHeader}>Username</Text>
+            <Text style={styles.pageHeader}>{displayName}</Text>
           </View>
         </ScrollView>
       </ImageBackground>

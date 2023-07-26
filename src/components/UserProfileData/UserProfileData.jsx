@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/selectors";
 
 export const UserProfileData = () => {
-  const { email, nickname, photoURL } = useSelector(selectUser);
+  const { email, displayName, photoURL } = useSelector(selectUser);
   let orientation = useOrientation();
 
   return (
@@ -23,7 +23,7 @@ export const UserProfileData = () => {
       )}
 
       <View>
-        <Text style={styles.username}>{nickname}</Text>
+        <Text style={styles.username}>{displayName}</Text>
         <Text style={styles.email}>{email}</Text>
       </View>
     </View>

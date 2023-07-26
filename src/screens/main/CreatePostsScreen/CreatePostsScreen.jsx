@@ -9,7 +9,7 @@ import { selectUser } from "../../../redux/selectors";
 import * as Location from "expo-location";
 import { fetchReverseGeocoding } from "../../../helpers/fetchGeocoding";
 
-import { uploadPhotoToDB, uploadPostToDB } from "../../../firebase/helpers";
+import { uploadPhotoToDB, uploadDataToDB } from "../../../firebase/helpers";
 
 import { SimpleLineIcons } from "@expo/vector-icons";
 import styles from "./CreatePostsScreen.styles";
@@ -27,7 +27,7 @@ const CreatePostsScreen = () => {
   const [data, setData] = useState(initialState);
   let orientation = useOrientation();
   const navigation = useNavigation();
-  const { userId } = useSelector(selectUser);
+  const { id: userId } = useSelector(selectUser);
 
   useEffect(() => {
     (async () => {
@@ -84,7 +84,7 @@ const CreatePostsScreen = () => {
     const photoURI = await uploadPhotoToDB(photo, "posts");
     const newPost = { ...data, photo: photoURI, userId };
 
-    await uploadPostToDB("posts", newPost);
+    await uploadDataToDB("posts", newPost);
 
     navigation.navigate("Posts");
     setPhoto(null);

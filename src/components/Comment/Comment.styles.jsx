@@ -9,6 +9,7 @@ export default styles = StyleSheet.create({
   avatar: {
     width: 28,
     height: 28,
+    borderRadius: 20,
   },
   commentThumb: {
     flexGrow: 1,

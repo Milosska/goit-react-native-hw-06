@@ -15,22 +15,35 @@ export const uploadPhotoToDB = async (photoURI, directory) => {
   return savedPhotoURL;
 };
 
-export const uploadPostToDB = async (collectionName, data) => {
+export const uploadDataToDB = async (collectionName, data) => {
   const newCollectionRef = collection(db, collectionName);
   const createdDoc = await addDoc(newCollectionRef, data);
 
   return createdDoc;
 };
 
-export const getAllPosts = async (collectionName, dataSetFunc) => {
+export const getAllCollection = async (collectionName, dataSetFunc) => {
   try {
-    console.log(dataSetFunc);
-
     const collectionRef = collection(db, collectionName);
     onSnapshot(collectionRef, (data) => {
       const posts = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       dataSetFunc(posts);
     });
+    return;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCollectionLength = async (collectionName, dataSetFunc) => {
+  try {
+    const collectionRef = collection(db, collectionName);
+    onSnapshot(collectionRef, (data) => {
+      const posts = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      dataSetFunc(posts.length);
+    });
+    return;
+
     return;
   } catch (error) {
     console.log(error);

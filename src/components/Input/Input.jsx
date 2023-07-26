@@ -12,7 +12,7 @@ export const Input = ({
   setUserData,
 }) => {
   const [isFocus, setIsFocus] = useState(false);
-  const DataName = placeholder === "Логин" ? "login" : "email";
+  const DataName = placeholder === "Email" ? "email" : "login";
   let orientation = useOrientation();
 
   return (

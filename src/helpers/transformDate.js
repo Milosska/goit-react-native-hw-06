@@ -1,38 +1,40 @@
 export const transformDate = (date) => {
+  console.log(date);
+
   const mounthNumber = date.getMonth();
 
-  const getUkrMounth = (mounthNumber) => {
+  const getEngMounth = (mounthNumber) => {
     switch (mounthNumber) {
       case 1:
-        return "січня";
+        return "january";
       case 2:
-        return "лютого";
+        return "february";
       case 3:
-        return "березня";
+        return "march";
       case 4:
-        return "квітня";
+        return "april";
       case 5:
-        return "травня";
+        return "may";
       case 6:
-        return "червня";
+        return "june";
       case 7:
-        return "липня";
+        return "july";
       case 8:
-        return "серпня";
+        return "august";
       case 9:
-        return "вересня";
+        return "september";
       case 10:
-        return "жовтня";
+        return "october";
       case 11:
-        return "листопада";
+        return "november";
       case 12:
-        return "грудня";
+        return "december";
       default:
         return "month";
     }
   };
 
-  return `${date.getDate()} ${getUkrMounth(
+  return `${date.getDate()} ${getEngMounth(
     mounthNumber
   )} ${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}`;
 };

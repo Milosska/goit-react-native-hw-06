@@ -70,20 +70,20 @@ const RegistrationScreen = ({ navigation }) => {
               <Input
                 placeholder="Login"
                 setIsKeyboardShown={setIsKeyboardShown}
-                value={userData}
+                value={userData.login}
                 setUserData={setUserData}
               />
               <Input
                 style={{ marginTop: 16 }}
                 placeholder="Email"
                 setIsKeyboardShown={setIsKeyboardShown}
-                value={userData}
+                value={userData.email}
                 setUserData={setUserData}
               />
               <PasswordInput
                 style={{ marginTop: 16 }}
                 setIsKeyboardShown={setIsKeyboardShown}
-                value={userData}
+                value={userData.password}
                 setUserData={setUserData}
               />
               <StyledButton textContent={"Sign up"} onPress={handleBtnPress} />

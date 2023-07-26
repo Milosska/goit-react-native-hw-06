@@ -1,24 +1,35 @@
 import { View, Text, Image } from "react-native";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/selectors";
+
 import avatarPlaceholder from "../../images/avatarPlaceholder.png";
 import { transformDate } from "../../helpers/transformDate";
 import styles from "./Comment.styles";
 
-export const Comment = ({ item: { author, message, createdAt } }) => {
-  const avatarImg = Image.resolveAssetSource(avatarPlaceholder).uri;
-  const commentDate = transformDate(createdAt);
+export const Comment = ({
+  item: { userId, createdAt, id, message, photoURL },
+}) => {
+  const { id: currentUserId } = useSelector(selectUser);
+
+  const avatarImg = photoURL
+    ? photoURL
+    : Image.resolveAssetSource(avatarPlaceholder).uri;
+
+  const commentDate = transformDate(createdAt.toDate());
 
   return (
     <View
       style={{
         ...styles.container,
-        flexDirection: author === "Milosska" ? "row-reverse" : "row",
+        flexDirection: userId === currentUserId ? "row-reverse" : "row",
       }}
     >
       <Image
         style={{
           ...styles.avatar,
-          marginLeft: author === "Milosska" ? 32 : 0,
-          marginRight: author === "Milosska" ? 0 : 32,
+          marginLeft: userId === currentUserId ? 32 : 0,
+          marginRight: userId === currentUserId ? 0 : 32,
         }}
         source={{ uri: avatarImg }}
       />
@@ -27,7 +38,7 @@ export const Comment = ({ item: { author, message, createdAt } }) => {
         <Text
           style={{
             ...styles.commentDate,
-            textAlign: author === "Milosska" ? "left" : "right",
+            textAlign: userId === currentUserId ? "left" : "right",
           }}
         >
           {commentDate}

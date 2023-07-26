@@ -78,8 +78,8 @@ export const userRefresh = () => async (dispath) => {
     if (user) {
       currentState = {
         user: {
-          userId: user.uid,
-          nickname: user.displayName,
+          id: user.uid,
+          displayName: user.displayName,
           photoURL: user.photoURL,
           email: user.email,
         },

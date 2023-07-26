@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../../redux/selectors";
+import { uploadDataToDB, getAllCollection } from "../../../../firebase/helpers";
 
 import { Comment } from "../../../../components/Comment/Comment";
 import { Feather } from "@expo/vector-icons";
@@ -15,6 +19,16 @@ const CommentsScreen = ({ route }) => {
   const [comments, setComments] = useState([]);
   const [currentComment, setCurrentComment] = useState(null);
   const [disabled, setDisabled] = useState(true);
+  const { id: userId, photoURL } = useSelector(selectUser);
+  const { postPhotoURL, id } = route.params;
+
+  useEffect(() => {
+    (async () => {
+      await getAllCollection(`posts/${id}/comments`, setComments);
+    })();
+  }, []);
+
+  console.log(comments);
 
   const onCommentType = (e) => {
     if (!currentComment) {
@@ -24,24 +38,25 @@ const CommentsScreen = ({ route }) => {
     setCurrentComment(e);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     const formedComment = {
-      author: "Milosska",
+      userId,
+      photoURL,
       message: currentComment,
       createdAt: new Date(),
     };
 
-    setComments((prevState) => [...prevState, formedComment]);
+    await uploadDataToDB(`posts/${id}/comments`, formedComment);
     setDisabled(true);
     setCurrentComment(null);
   };
 
   return (
     <View style={styles.container}>
-      <Image style={styles.postPhoto} source={{ uri: route.params }} />
+      <Image style={styles.postPhoto} source={{ uri: postPhotoURL }} />
       <FlatList
         data={comments}
-        keyExtractor={(_, index) => index}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => <Comment item={item} />}
       />
       <View style={styles.inputContainer}>

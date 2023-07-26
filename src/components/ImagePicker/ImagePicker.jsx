@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, Image, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/selectors";
+
 import styles from "./ImagePicker.styles";
 
 export const ImagePickerElem = ({ setUserData }) => {
   const [image, setImage] = useState(null);
+  const user = useSelector(selectUser);
+
+  useEffect(() => {
+    if (user?.photoURL) {
+      setImage(user.photoURL);
+    }
+  }, []);
 
   const pickImage = async () => {
     if (image) {
