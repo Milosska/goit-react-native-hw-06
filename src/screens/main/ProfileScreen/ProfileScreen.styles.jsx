@@ -4,6 +4,7 @@ export default styles = StyleSheet.create({
   container: {
     position: "relative",
     flex: 1,
+    justifyContent: "flex-end",
   },
   bgImage: {
     position: "absolute",
@@ -13,6 +14,7 @@ export default styles = StyleSheet.create({
     height: "100%",
   },
   contentContainer: {
+    flex: 1,
     justifyContent: "flex-end",
   },
   contentThumb: {
@@ -37,5 +39,9 @@ export default styles = StyleSheet.create({
     fontFamily: "Roboto-Medium",
     fontSize: 30,
     lineHeight: 35,
+  },
+  postList: {
+    marginHorizontal: 16,
+    width: "95%",
   },
 });

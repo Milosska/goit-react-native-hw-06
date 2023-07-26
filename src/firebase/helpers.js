@@ -1,6 +1,12 @@
 import { storage, db } from "../firebase/config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { collection, addDoc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 
 export const uploadPhotoToDB = async (photoURI, directory) => {
   const response = await fetch(photoURI);
@@ -43,7 +49,24 @@ export const getCollectionLength = async (collectionName, dataSetFunc) => {
       dataSetFunc(posts.length);
     });
     return;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+export const getCollectionByQuery = async (
+  collectionName,
+  currentUserId,
+  dataSetFunc
+) => {
+  try {
+    const collectionRef = collection(db, collectionName);
+    const q = query(collectionRef, where("userId", "==", currentUserId));
+
+    onSnapshot(q, (data) => {
+      const posts = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      dataSetFunc(posts);
+    });
     return;
   } catch (error) {
     console.log(error);

@@ -1,23 +1,28 @@
-import { View, Text, ImageBackground, ScrollView } from "react-native";
+import { useState, useEffect } from "react";
+import { View, Text, ImageBackground, FlatList } from "react-native";
 import { useOrientation } from "../../../hooks/useOrientation";
 
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/selectors";
+import { getCollectionByQuery } from "../../../firebase/helpers";
 
 import { indicateBgImage } from "../../../helpers/indicateBgImage/indicateBgImage";
 import { ImagePickerElem } from "../../../components/ImagePicker/ImagePicker";
 import { LogOutIcon } from "../../../components/LogOutIcon/LogOutIcon";
+import { PostData } from "../../../components/PostData/PostData";
 import styles from "./ProfileScreen.styles";
 
 const Profile = () => {
-  const { displayName } = useSelector(selectUser);
-
+  const [userPosts, setUserPosts] = useState([]);
+  const { displayName, id: currentUserId } = useSelector(selectUser);
   const bgImage = indicateBgImage();
   let orientation = useOrientation();
 
-  const handleLogOut = () => {
-    navigation.navigate("Authorization");
-  };
+  useEffect(() => {
+    (async () => {
+      await getCollectionByQuery("posts", currentUserId, setUserPosts);
+    })();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -26,12 +31,7 @@ const Profile = () => {
         source={bgImage}
         resizeMode="cover"
       >
-        <ScrollView
-          contentContainerStyle={{
-            ...styles.contentContainer,
-            flex: orientation === "landscape" ? 0 : 1,
-          }}
-        >
+        <View style={styles.contentContainer}>
           <View
             style={{
               ...styles.contentThumb,
@@ -41,8 +41,14 @@ const Profile = () => {
             <ImagePickerElem />
             <LogOutIcon customStyle={styles.logOut} />
             <Text style={styles.pageHeader}>{displayName}</Text>
+            <FlatList
+              style={styles.postList}
+              data={userPosts}
+              keyExtractor={(_, index) => index}
+              renderItem={({ item }) => <PostData item={item} />}
+            />
           </View>
-        </ScrollView>
+        </View>
       </ImageBackground>
     </View>
   );
