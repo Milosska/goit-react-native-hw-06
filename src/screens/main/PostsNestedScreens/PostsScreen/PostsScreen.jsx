@@ -3,6 +3,8 @@ import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useOrientation } from "../../../../hooks/useOrientation";
 
+import { getAllPosts } from "../../../../firebase/helpers";
+
 import { Feather } from "@expo/vector-icons";
 import { UserProfileData } from "../../../../components/UserProfileData/UserProfileData";
 import styles from "./PostsScreen.styles";
@@ -13,14 +15,10 @@ const PostsScreen = ({ route }) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (route.params) {
-      setPosts((prevState) =>
-        prevState.includes(route.params)
-          ? prevState
-          : [...prevState, route.params]
-      );
-    }
-  }, [route.params]);
+    (async () => {
+      await getAllPosts("posts", setPosts);
+    })();
+  }, []);
 
   const handleComments = (data) => {
     navigation.navigate("Comments", data);

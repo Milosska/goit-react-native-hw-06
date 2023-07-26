@@ -6,8 +6,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/selectors";
 
 export const UserProfileData = () => {
-  const { email, nickname, userId, photoURL } = useSelector(selectUser);
-  console.log(email, userId, photoURL);
+  const { email, nickname, photoURL } = useSelector(selectUser);
   let orientation = useOrientation();
 
   return (

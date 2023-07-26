@@ -3,8 +3,13 @@ import { ScrollView, View, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useOrientation } from "../../../hooks/useOrientation";
 
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/selectors";
+
 import * as Location from "expo-location";
 import { fetchReverseGeocoding } from "../../../helpers/fetchGeocoding";
+
+import { uploadPhotoToDB, uploadPostToDB } from "../../../firebase/helpers";
 
 import { SimpleLineIcons } from "@expo/vector-icons";
 import styles from "./CreatePostsScreen.styles";
@@ -22,6 +27,7 @@ const CreatePostsScreen = () => {
   const [data, setData] = useState(initialState);
   let orientation = useOrientation();
   const navigation = useNavigation();
+  const { userId } = useSelector(selectUser);
 
   useEffect(() => {
     (async () => {
@@ -33,7 +39,10 @@ const CreatePostsScreen = () => {
 
       const {
         coords: { latitude, longitude },
-      } = await Location.getCurrentPositionAsync({});
+      } = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Highest,
+        maximumAge: 10000,
+      });
 
       setCurrentLocation({ latitude, longitude });
     })();
@@ -68,13 +77,16 @@ const CreatePostsScreen = () => {
   };
 
   const handlePublish = async () => {
-    const newPost = { ...data, photo: photo };
-
     if (!data.title.trim()) {
       return;
     }
 
-    navigation.navigate("Posts", newPost);
+    const photoURI = await uploadPhotoToDB(photo, "posts");
+    const newPost = { ...data, photo: photoURI, userId };
+
+    await uploadPostToDB("posts", newPost);
+
+    navigation.navigate("Posts");
     setPhoto(null);
     setData(initialState);
   };
