@@ -51,7 +51,7 @@ export const CameraEl = ({ photo, setPhoto }) => {
         )}
       </View>
       <Text style={styles.cameraText}>
-        {photo ? "Редактировать фото" : "Загрузите фото"}
+        {photo ? "Edit photo" : "Make photo"}
       </Text>
     </>
   );

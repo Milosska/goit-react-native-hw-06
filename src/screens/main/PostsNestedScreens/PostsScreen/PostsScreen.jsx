@@ -22,7 +22,7 @@ const PostsScreen = ({ route }) => {
   }, [route.params]);
 
   const handleComments = (data) => {
-    navigation.navigate("Комментарии", data);
+    navigation.navigate("Comments", data);
   };
 
   const handleLocation = (data) => {
@@ -30,7 +30,7 @@ const PostsScreen = ({ route }) => {
       return;
     }
 
-    navigation.navigate("Локация", data);
+    navigation.navigate("Location", data);
   };
 
   const handleLocationLength = (location) => {

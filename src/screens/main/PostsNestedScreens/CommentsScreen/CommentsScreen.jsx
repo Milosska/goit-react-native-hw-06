@@ -48,7 +48,7 @@ const CommentsScreen = ({ route }) => {
         <TextInput
           value={currentComment}
           style={styles.input}
-          placeholder="Комментировать..."
+          placeholder="Comment..."
           placeholderTextColor="#BDBDBD"
           onChangeText={onCommentType}
         />

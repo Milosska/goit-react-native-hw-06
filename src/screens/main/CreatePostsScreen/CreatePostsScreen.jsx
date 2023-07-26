@@ -74,7 +74,7 @@ const CreatePostsScreen = () => {
       return;
     }
 
-    navigation.navigate("Публикации", newPost);
+    navigation.navigate("Posts", newPost);
     setPhoto(null);
     setData(initialState);
   };
@@ -90,7 +90,7 @@ const CreatePostsScreen = () => {
       <TextInput
         value={data.title}
         style={styles.input}
-        placeholder="Название..."
+        placeholder="Title..."
         placeholderTextColor="#BDBDBD"
         onChangeText={(e) => setData((prev) => ({ ...prev, title: e }))}
       />
@@ -104,13 +104,13 @@ const CreatePostsScreen = () => {
         <TextInput
           value={data.location?.decoded}
           style={{ ...styles.input, paddingHorizontal: 36 }}
-          placeholder="Местность..."
+          placeholder="Location..."
           placeholderTextColor="#BDBDBD"
           onChangeText={handleLocationChange}
         />
       </View>
       <StyledButton
-        textContent="Опубликовать"
+        textContent="Publish"
         disabled={handleValidation() ? false : true}
         onPress={handlePublish}
       />

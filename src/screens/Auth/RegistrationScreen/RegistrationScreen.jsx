@@ -65,17 +65,17 @@ const RegistrationScreen = ({ navigation }) => {
                   marginTop: orientation === "landscape" ? 112 : 92,
                 }}
               >
-                Регистрация
+                Sign Up
               </Text>
               <Input
-                placeholder="Логин"
+                placeholder="Login"
                 setIsKeyboardShown={setIsKeyboardShown}
                 value={userData}
                 setUserData={setUserData}
               />
               <Input
                 style={{ marginTop: 16 }}
-                placeholder="Адрес электронной почты"
+                placeholder="Email"
                 setIsKeyboardShown={setIsKeyboardShown}
                 value={userData}
                 setUserData={setUserData}
@@ -86,16 +86,15 @@ const RegistrationScreen = ({ navigation }) => {
                 value={userData}
                 setUserData={setUserData}
               />
-              <StyledButton
-                textContent={"Зарегистрироваться"}
-                onPress={handleBtnPress}
-              />
+              <StyledButton textContent={"Sign up"} onPress={handleBtnPress} />
             </View>
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => navigation.navigate("Login")}
             >
-              <Text style={styles.linkText}>Уже есть аккаунт? Войти</Text>
+              <Text style={styles.linkText}>
+                Already have an account? Sign In
+              </Text>
             </TouchableOpacity>
           </KeyboardAvoidingView>
         </View>

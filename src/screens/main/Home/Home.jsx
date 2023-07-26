@@ -18,12 +18,12 @@ const Home = () => {
   return (
     <BottomTab.Navigator>
       <BottomTab.Screen
-        name="Посты"
+        name="Publications"
         component={PostNestedScreens}
         options={({ route }) => ({
           tabBarStyle: ((route) => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? "";
-            if (routeName === "Комментарии") {
+            if (routeName === "Comments") {
               return { display: "none" };
             }
             return;
@@ -37,7 +37,7 @@ const Home = () => {
         })}
       />
       <BottomTab.Screen
-        name="Создать публикацию"
+        name="Create post"
         component={CreatePostsScreen}
         options={{
           headerTitleAlign: "center",
@@ -48,7 +48,7 @@ const Home = () => {
             <TouchableOpacity
               style={styles.plusBarIcon}
               activeOpacity={0.7}
-              onPress={() => navigation.navigate("Создать публикацию")}
+              onPress={() => navigation.navigate("Create post")}
             >
               <Feather name="plus" focused="false" size={24} color="#ffffff" />
             </TouchableOpacity>

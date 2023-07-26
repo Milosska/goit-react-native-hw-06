@@ -31,7 +31,7 @@ export const PasswordInput = ({
           borderColor: isFocus ? "#FF6C00" : "#E8E8E8",
           padding: orientation === "landscape" ? 8 : 16,
         }}
-        placeholder="Пароль"
+        placeholder="Password"
         placeholderTextColor="#BDBDBD"
         secureTextEntry={isShown}
         onFocus={() => {
@@ -50,7 +50,7 @@ export const PasswordInput = ({
         }}
       />
       <Pressable style={styles.showBtn} onPress={handlePress}>
-        <Text style={styles.btnText}>{isShown ? "Показать" : "Скрыть"}</Text>
+        <Text style={styles.btnText}>{isShown ? "Show" : "Hide"}</Text>
       </Pressable>
     </View>
   );

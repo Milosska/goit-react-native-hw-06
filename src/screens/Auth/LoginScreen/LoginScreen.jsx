@@ -47,10 +47,10 @@ const LoginScreen = ({ navigation }) => {
                 marginBottom: orientation === "landscape" ? 20 : 32,
               }}
             >
-              Войти
+              Sign In
             </Text>
             <Input
-              placeholder="Адрес электронной почты"
+              placeholder="Email"
               setIsKeyboardShown={setIsKeyboardShown}
               value={userData}
               setUserData={setUserData}
@@ -63,7 +63,7 @@ const LoginScreen = ({ navigation }) => {
               value={userData}
               setUserData={setUserData}
             />
-            <StyledButton textContent={"Войти"} onPress={handleBtnPress} />
+            <StyledButton textContent={"Sign in"} onPress={handleBtnPress} />
           </View>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -71,9 +71,7 @@ const LoginScreen = ({ navigation }) => {
               navigation.navigate("Registration");
             }}
           >
-            <Text style={styles.linkText}>
-              Нет аккаунта? Зарегистрироваться
-            </Text>
+            <Text style={styles.linkText}>Have no account? Sign up</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
       </View>

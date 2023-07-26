@@ -12,11 +12,11 @@ const PostNestedScreens = ({ route }) => {
 
   return (
     <PostStack.Navigator
-      initialRouteName="Публикации"
+      initialRouteName="Posts"
       screenOptions={{ tabBarStyle: { display: "none" } }}
     >
       <PostStack.Screen
-        name="Публикации"
+        name="Posts"
         component={PostsScreen}
         options={{
           headerTitleAlign: "center",
@@ -30,7 +30,7 @@ const PostNestedScreens = ({ route }) => {
         }}
       />
       <PostStack.Screen
-        name="Комментарии"
+        name="Comments"
         component={CommentsScreen}
         options={{
           headerTitleAlign: "center",
@@ -40,7 +40,7 @@ const PostNestedScreens = ({ route }) => {
         }}
       />
       <PostStack.Screen
-        name="Локация"
+        name="Location"
         component={MapScreen}
         options={{
           headerTitleAlign: "center",
