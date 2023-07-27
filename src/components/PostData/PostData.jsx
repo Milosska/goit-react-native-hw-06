@@ -35,6 +35,8 @@ export const PostData = ({ item }) => {
     return location.length > 30 ? `${location.slice(0, 29)}...` : location;
   };
 
+  const setCommentColor = () => (commentsLength > 0 ? "#FF6C00" : "#BDBDBD");
+
   return (
     <View style={styles.postContainer}>
       <Image
@@ -52,7 +54,11 @@ export const PostData = ({ item }) => {
           }
           style={styles.postComments}
         >
-          <Feather name="message-circle" size={24} color="#BDBDBD" />
+          <Feather
+            name="message-circle"
+            size={24}
+            color={`${setCommentColor()}`}
+          />
           <Text style={styles.commentsLabel}>{commentsLength}</Text>
         </TouchableOpacity>
         <View style={styles.postLocation}>
