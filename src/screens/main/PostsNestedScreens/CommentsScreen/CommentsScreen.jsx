@@ -23,12 +23,12 @@ const CommentsScreen = ({ route }) => {
   const { postPhotoURL, id } = route.params;
 
   useEffect(() => {
-    (async () => {
-      await getAllCollection(`posts/${id}/comments`, setComments);
-    })();
-  }, []);
+    const unsubscribe = getAllCollection(`posts/${id}/comments`, setComments);
 
-  console.log(comments);
+    return () => {
+      unsubscribe.then((res) => res()).catch((e) => console.error(e));
+    };
+  }, []);
 
   const onCommentType = (e) => {
     if (!currentComment) {

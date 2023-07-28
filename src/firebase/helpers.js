@@ -31,11 +31,11 @@ export const uploadDataToDB = async (collectionName, data) => {
 export const getAllCollection = async (collectionName, dataSetFunc) => {
   try {
     const collectionRef = collection(db, collectionName);
-    onSnapshot(collectionRef, (data) => {
+    const subscription = onSnapshot(collectionRef, (data) => {
       const posts = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       dataSetFunc(posts);
     });
-    return;
+    return subscription;
   } catch (error) {
     console.log(error);
   }
@@ -44,11 +44,11 @@ export const getAllCollection = async (collectionName, dataSetFunc) => {
 export const getCollectionLength = async (collectionName, dataSetFunc) => {
   try {
     const collectionRef = collection(db, collectionName);
-    onSnapshot(collectionRef, (data) => {
+    const subscription = onSnapshot(collectionRef, (data) => {
       const posts = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       dataSetFunc(posts.length);
     });
-    return;
+    return subscription;
   } catch (error) {
     console.log(error);
   }
@@ -63,11 +63,12 @@ export const getCollectionByQuery = async (
     const collectionRef = collection(db, collectionName);
     const q = query(collectionRef, where("userId", "==", currentUserId));
 
-    onSnapshot(q, (data) => {
+    const subscription = onSnapshot(q, (data) => {
       const posts = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       dataSetFunc(posts);
     });
-    return;
+
+    return subscription;
   } catch (error) {
     console.log(error);
   }

@@ -13,9 +13,11 @@ const PostsScreen = ({ route }) => {
   let orientation = useOrientation();
 
   useEffect(() => {
-    (async () => {
-      await getAllCollection("posts", setPosts);
-    })();
+    const unsubscribe = getAllCollection("posts", setPosts);
+
+    return () => {
+      unsubscribe.then((res) => res()).catch((e) => console.error(e));
+    };
   }, []);
 
   return (

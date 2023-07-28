@@ -19,9 +19,15 @@ const Profile = () => {
   let orientation = useOrientation();
 
   useEffect(() => {
-    (async () => {
-      await getCollectionByQuery("posts", currentUserId, setUserPosts);
-    })();
+    const unsubscribe = getCollectionByQuery(
+      "posts",
+      currentUserId,
+      setUserPosts
+    );
+
+    return () => {
+      unsubscribe.then((res) => res()).catch((e) => console.error(e));
+    };
   }, []);
 
   return (

@@ -1,6 +1,4 @@
 export const transformDate = (date) => {
-  console.log(date);
-
   const mounthNumber = date.getMonth();
 
   const getEngMounth = (mounthNumber) => {

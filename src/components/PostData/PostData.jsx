@@ -14,9 +14,14 @@ export const PostData = ({ item }) => {
   let orientation = useOrientation();
 
   useEffect(() => {
-    (async () => {
-      await getCollectionLength(`posts/${item.id}/comments`, setCommentsLength);
-    })();
+    const unsubscribe = getCollectionLength(
+      `posts/${item.id}/comments`,
+      setCommentsLength
+    );
+
+    return () => {
+      unsubscribe.then((res) => res()).catch((e) => console.error(e));
+    };
   }, []);
 
   const handleComments = (data) => {
